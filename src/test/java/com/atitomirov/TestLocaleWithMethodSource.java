@@ -12,16 +12,16 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static com.codeborne.selenide.CollectionCondition.containExactTextsCaseSensitive;
-import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byTextCaseInsensitive;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TestLocaleWithMethodSource extends TestBase {
 
     static Stream<Arguments> siteContainAllButtonsForSelectedLocale() {
         return Stream.of(
-                Arguments.of(Locale.En, List.of(
+                Arguments.of(Locale.EN, List.of(
                         "ABOUT", "PRODUCTS", "DEVELOPMENT", "CONTACTS")),
-                Arguments.of(Locale.Ru, List.of(
+                Arguments.of(Locale.RU, List.of(
                         "КОМПАНИЯ", "ПРОДУКТЫ", "ТЕХНОЛОГИИ",
                         "ПАРТНЁРЫ", "ОБУЧЕНИЕ", "ТЕХПОДДЕРЖКА"))
         );
@@ -37,7 +37,7 @@ public class TestLocaleWithMethodSource extends TestBase {
     ) {
         open("https://www.basealt.ru/");
         $(".lang").click();
-        $(".lang.open").$(byText(locale.name())).click();
+        $(".lang.open").$(byTextCaseInsensitive(locale.name())).click();
         $$("#main_menu li a").shouldHave(containExactTextsCaseSensitive(buttons));
 
     }
